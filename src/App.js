@@ -209,7 +209,8 @@ const Auto = () => {
       .then((data) => {
         console.log(data);
         stocks = [...stocks, data ]
-        setOptions(stocks)
+        console.log(stocks[0].bestMatches);
+        setOptions(stocks[0].bestMatches)
       })
   }, [search])
 
@@ -222,10 +223,20 @@ let handleChange = (e) => {
     <div>
       <input
         placeholder='type to search'
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value || 'btc')}
       />
       {console.log('search: ',search)}
       {console.log('options: ',options)}
+      {console.log(options.map(stock => {
+        console.log(stock['1. symbol'], stock['2. name']);
+      }))}
+      {options.map(stock => {
+        return(
+          <div>
+            <span>{stock['1. symbol']} - {stock['2. name']}</span>
+          </div>
+        )
+      })}
     </div>
   )
 }

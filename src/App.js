@@ -11,7 +11,8 @@ const Auto = () => {
   const [data, setData] = useState()
   const timeoutRef = useRef(null)
   // const [value, setValue] = useState('')
-  const [clickedStock, setClickedStock] = useState('')
+  const [searchedStock, setSearchedStock] = useState('ibm')
+  const [stockDaily, setStockDaily] = useState([])
 
   function validate() {
     console.log('validating after 5ms..');
@@ -19,6 +20,14 @@ const Auto = () => {
 
   useEffect(() => {
     let stocks = []
+    let daily = []
+    let d = new Date()
+    let day = d.getDate()
+    let month = d.getMonth()+1
+    let year = d.getFullYear()
+    // console.log(year+'-'+day+'-'+month);
+    let currentDate = `${year}-${month}-${day}`
+    console.log(currentDate);
     if(timeoutRef.current !== null){
       clearTimeout(timeoutRef.current)
     }
@@ -32,7 +41,15 @@ const Auto = () => {
           setOptions(stocks[0].bestMatches)
         })
       /////////////////
-
+      fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${searchedStock}&apikey=QZ4L2TSNZBWXXVTO`)
+        .then(res => res.json())
+        .then((data) =>{
+          daily = [...daily, data]
+          console.log(daily[0]['Time Series (Daily)']["2020-06-18"])
+// daily[0]['Time Series (Daily)']["2020-06-18"]
+console.log(daily);
+          setStockDaily(daily)
+        })
     }, 1000)
 
       // fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=QZ4L2TSNZBWXXVTO`)
@@ -42,7 +59,7 @@ const Auto = () => {
       //     setOptions(stocks[0].bestMatches)
       //   })
 
-  }, [search])
+  }, [search, searchedStock])
 
 
 
@@ -75,11 +92,35 @@ let returnResults = (stock) => {
           let symbol = stock['1. symbol']
           let name = stock['2. name']
         return(
-          <div onClick ={(e) => setClickedStock(symbol)}
+          <div onClick ={(e) => setSearchedStock(symbol)}
           key = {i}
           >
-          {console.log('click',clickedStock)}
+          {console.log('click',searchedStock)}
             <span>{symbol} - {name}</span>
+          </div>
+        )
+      })}
+
+      {stockDaily.map((stock, i) =>{
+        console.log(stock['Time Series (Daily)']["2020-06-18"]);
+        let arr = stock['Time Series (Daily)']["2020-06-18"]
+        // 1. open: "123.0000"
+        // 2. high: "124.4000"
+        // 3. low: "122.3300"
+        // 4. close: "124.1600"
+        // 5. volume: "2860286"
+        let o = arr['1. open']
+        let h = arr['2. high']
+        let l = arr['3. low']
+        let c = arr['4. close']
+        console.log(o, h, l, c);
+        return(
+          <div>
+            <h1> {searchedStock} </h1>
+            <span>open: {o} </span>
+            <span>high: {h} </span>
+            <span>low: {l} </span>
+            <span>close: {c} </span>
           </div>
         )
       })}

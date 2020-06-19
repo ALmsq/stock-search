@@ -195,28 +195,62 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import _ from 'lodash'
+import fetchTimeout from 'fetch-timeout'
 
 const Auto = () => {
   const [display, setDisplay] = useState(false) //show search
   const [options, setOptions] = useState([])
   const [search, setSearch] = useState('btc')
   const [data, setData] = useState()
+  const timeoutRef = useRef(null)
+  const [value, setValue] = useState('')
+
+  function validate() {
+    console.log('validating after 5ms..');
+  }
+
 
   useEffect(() => {
     let stocks = []
-    fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=QZ4L2TSNZBWXXVTO`)
-      .then(res => res.json())
-      .then((data) => {
-        console.log(data);
-        stocks = [...stocks, data ]
-        console.log(stocks[0].bestMatches);
-        setOptions(stocks[0].bestMatches)
-      })
+    if(timeoutRef.current !== null){
+      clearTimeout(timeoutRef.current)
+    }
+    timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = null
+      //////////////////
+      fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=QZ4L2TSNZBWXXVTO`)
+        .then(res => res.json())
+        .then((data) =>{
+          stocks = [...stocks, data]
+          setOptions(stocks[0].bestMatches)
+        })
+      /////////////////
+
+    }, 1000)
+
+      // fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=QZ4L2TSNZBWXXVTO`)
+      //   .then(res => res.json())
+      //   .then((data) =>{
+      //     stocks = [...stocks, data]
+      //     setOptions(stocks[0].bestMatches)
+      //   })
+
   }, [search])
 
 
+
 let handleChange = (e) => {
-  console.log(e);
+  setTimeout(setSearch(e.target.value || 'btc'), 2000)
+  // setTimeout(console.log('yo'), 20000)
+  // console.log('yo');
+}
+
+let returnResults = (stock) => {
+  return(
+    <div onClick ={(e) => console.log(e)}>
+      <span>{stock['1. symbol']} - {stock['2. name']}</span>
+    </div>
+  )
 }
 
   return(
@@ -224,15 +258,16 @@ let handleChange = (e) => {
       <input
         placeholder='type to search'
         onChange={(e) => setSearch(e.target.value || 'btc')}
+        // value = {search}
       />
       {console.log('search: ',search)}
       {console.log('options: ',options)}
-      {console.log(options.map(stock => {
-        console.log(stock['1. symbol'], stock['2. name']);
-      }))}
-      {options.map(stock => {
+      {options.map((stock, i) => {
+        // console.log('test', stock, i);
         return(
-          <div>
+          <div onClick ={(e) => console.log(i)}
+          key = {i}
+          >
             <span>{stock['1. symbol']} - {stock['2. name']}</span>
           </div>
         )

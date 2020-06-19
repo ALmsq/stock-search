@@ -7,7 +7,7 @@ import fetchTimeout from 'fetch-timeout'
 const Auto = () => {
   const [display, setDisplay] = useState(false) //show search
   const [options, setOptions] = useState([])
-  const [search, setSearch] = useState('btc')
+  const [search, setSearch] = useState('ibm')
   const [data, setData] = useState()
   const timeoutRef = useRef(null)
   // const [value, setValue] = useState('')
@@ -50,7 +50,7 @@ const Auto = () => {
 console.log(daily);
           setStockDaily(daily)
         })
-    }, 1000)
+    }, 2000)
 
       // fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=QZ4L2TSNZBWXXVTO`)
       //   .then(res => res.json())
@@ -64,7 +64,7 @@ console.log(daily);
 
 
 let handleChange = (e) => {
-  setTimeout(setSearch(e.target.value || 'btc'), 2000)
+  setTimeout(setSearch(e.target.value || 'ibm'), 2000)
   // setTimeout(console.log('yo'), 20000)
   // console.log('yo');
 }
@@ -81,7 +81,7 @@ let returnResults = (stock) => {
     <div>
       <input
         placeholder='type to search'
-        onChange={(e) => setSearch(e.target.value || 'btc')}
+        onChange={(e) => setSearch(e.target.value || 'ibm')}
         // value = {value}
       />
 

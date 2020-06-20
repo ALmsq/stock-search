@@ -98,6 +98,7 @@ const Auto = () => {
 // daily[0]['Time Series (Daily)']["2020-06-18"]
 // console.log(daily);
           setStockDaily(daily)
+          // console.log(daily);
         })
     }, 2000)
 
@@ -116,6 +117,7 @@ const Auto = () => {
 
   return (
     <div className="App">
+      <div className="Search">
       <Form
         barOpened={barOpened}
         onClick={() => {
@@ -145,10 +147,11 @@ const Auto = () => {
           ref={inputFocus}
           value={input}
           barOpened={barOpened}
-          placeholder="Search for a movie..."
+          placeholder="Search for a stock..."
         />
       </Form>
-      <div>
+      </div>
+      <div className="Results">
         {options.map((stock, i) => {
           let symbol = stock[`1. symbol`]
           let name = stock['2. name']
@@ -157,11 +160,38 @@ const Auto = () => {
             <div onClick = {(e) => setSearchedStock(symbol)}
             key = {i}
             >
-            <span>{symbol} - {name}</span>
-            {console.log(searchedStock)}
+            <ul>
+              <li>{symbol} - {name}</li>
+            </ul>
+
             </div>
           )
         })}
+      </div>
+      <div className='ohlc'>
+      {stockDaily.map((stock, i) =>{
+        console.log(stock['Time Series (Daily)']["2020-06-18"]);
+        let arr = stock['Time Series (Daily)']["2020-06-18"]
+        // 1. open: "123.0000"
+        // 2. high: "124.4000"
+        // 3. low: "122.3300"
+        // 4. close: "124.1600"
+        // 5. volume: "2860286"
+        let o = arr['1. open']
+        let h = arr['2. high']
+        let l = arr['3. low']
+        let c = arr['4. close']
+        console.log(o, h, l, c);
+        return(
+          <div>
+            <h1> {searchedStock} </h1>
+            <span>open: {o} </span>
+            <span>high: {h} </span>
+            <span>low: {l} </span>
+            <span>close: {c} </span>
+          </div>
+        )
+      })}
       </div>
     </div>
   );

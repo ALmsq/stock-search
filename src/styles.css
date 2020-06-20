@@ -8,6 +8,19 @@
   min-height: 100vh;
 }
 
+.Search {
+  position: absolute;
+}
+
+.ohlc {
+  position: absolute;
+  margin-top: 200px;
+}
+
+.Results {
+  margin-top: 200px;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -104,6 +104,22 @@ const Auto = () => {
 
   }, [input, searchedStock])
 
+  ////////////////////////////////////////
+  //temp display closed
+  useEffect(() => {
+    window.addEventListener('mousedown', handleClickOutside)
+    return() => {
+      window.removeEventListener('mousedown', handleClickOutside)
+    }
+  })
+
+  const handleClickOutside = e => {
+    const { current: wrap } = wrapperRef
+    if(wrap && !wrap.contains(e.target)){
+      setDisplay(false)
+    }
+  }
+
 
 
   const onFormSubmit = e => {
@@ -116,7 +132,7 @@ const Auto = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App" >
       <div className="Search">
       <Form
         barOpened={barOpened}
@@ -124,7 +140,7 @@ const Auto = () => {
           // When form clicked, set state of baropened to true and focus the input
           setBarOpened(true);
           inputFocus.current.focus();
-
+          setDisplay(!display)
         }}
         // on focus open search bar
         onFocus={() => {
@@ -151,48 +167,61 @@ const Auto = () => {
         />
       </Form>
       </div>
-      <div className="Results">
-        {options.map((stock, i) => {
-          let symbol = stock[`1. symbol`]
-          let name = stock['2. name']
-          // console.log(symbol, name);
-          return(
-            <div onClick = {(e) => setSearchedStock(symbol)}
-            key = {i}
-            >
-            <ul>
-              <li>{symbol} - {name}</li>
-            </ul>
 
+      <div ref = {wrapperRef}>
+      {display && (
+
+        <div className="Results">
+          {options.map((stock, i) => {
+            let symbol = stock[`1. symbol`]
+            let name = stock['2. name']
+            // console.log(symbol, name);
+
+            return(
+              <div onClick = {(e) =>{
+                setSearchedStock(symbol)
+                setBarOpened(true)
+              }}
+              key = {i}
+              >
+              <ul>
+                <li>{symbol} - {name}</li>
+              </ul>
+
+              </div>
+            )
+          })}
+
+        <div className='ohlc'>
+        {stockDaily.map((stock, i) =>{
+          console.log(stock['Time Series (Daily)']["2020-06-18"]);
+          let arr = stock['Time Series (Daily)']["2020-06-18"]
+          // 1. open: "123.0000"
+          // 2. high: "124.4000"
+          // 3. low: "122.3300"
+          // 4. close: "124.1600"
+          // 5. volume: "2860286"
+          let o = arr['1. open']
+          let h = arr['2. high']
+          let l = arr['3. low']
+          let c = arr['4. close']
+          console.log(o, h, l, c);
+          return(
+            <div>
+              <h1> {searchedStock} </h1>
+              <span>open: {o} </span>
+              <span>high: {h} </span>
+              <span>low: {l} </span>
+              <span>close: {c} </span>
             </div>
           )
         })}
+        </div>
+        </div>
+      )}
       </div>
-      <div className='ohlc'>
-      {stockDaily.map((stock, i) =>{
-        console.log(stock['Time Series (Daily)']["2020-06-18"]);
-        let arr = stock['Time Series (Daily)']["2020-06-18"]
-        // 1. open: "123.0000"
-        // 2. high: "124.4000"
-        // 3. low: "122.3300"
-        // 4. close: "124.1600"
-        // 5. volume: "2860286"
-        let o = arr['1. open']
-        let h = arr['2. high']
-        let l = arr['3. low']
-        let c = arr['4. close']
-        console.log(o, h, l, c);
-        return(
-          <div>
-            <h1> {searchedStock} </h1>
-            <span>open: {o} </span>
-            <span>high: {h} </span>
-            <span>low: {l} </span>
-            <span>close: {c} </span>
-          </div>
-        )
-      })}
-      </div>
+
+
     </div>
   );
 }

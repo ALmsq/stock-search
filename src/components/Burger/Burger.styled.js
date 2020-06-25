@@ -20,7 +20,7 @@ export const StyledBurger = styled.button`
   }
 
   div {
-    width: 2rem;
+    width: 2.2rem;
     height: 0.25rem;
     background: ${({ theme, open }) => open ? theme.primaryDark : theme.primaryLight};
     border-radius: 10px;
@@ -29,6 +29,7 @@ export const StyledBurger = styled.button`
     transform-origin: 1px;
 
     :first-child {
+      transform: ${({ open }) => open ? 'rotate(45deg)' : 'rotate(0)'};
       transform: ${({ open }) => open ? 'rotate(45deg)' : 'rotate(0)'};
     }
 

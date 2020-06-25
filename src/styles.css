@@ -18,7 +18,14 @@
 }
 
 .Results {
+
   margin-top: 200px;
+  border-radius: 20px;
+  background-color: #36484F;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1)
 }
 
 * {

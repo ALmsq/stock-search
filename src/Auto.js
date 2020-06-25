@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import { useOnClickOutside } from './hooks'
 
 import "./styles.css";
 
@@ -18,6 +19,17 @@ const Form = styled.form`
   height: 2rem;
   border-radius: 10rem;
   transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+`;
+
+const Result = styled.div`
+width: ${props => (props.resultOpened ? "30rem" : "auto")};
+display: ${props => (props.resultOpened ? 'block' : 'none')};
+margin-top: 200px;
+border-radius: 20px;
+background-color: #36484F;
+padding: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+transition: width 300s cubic-bezier(0.645, 0.045, 0.355, 1);
 `;
 
 const Input = styled.input`
@@ -49,11 +61,21 @@ const Button = styled.button`
   color: white;
 `;
 
+const Img = styled.img`
+  height: 25px
+`
+
 const Auto = () => {
   const [input, setInput] = useState("ibm");
   const [barOpened, setBarOpened] = useState(false);
+  const [resultOpened, setResultOpened] = useState(false)
   const formRef = useRef();
   const inputFocus = useRef();
+  const spanFocus = useRef()
+  // const node = useRef()
+  const resultFocus = useRef()
+  const node = useRef()
+  useOnClickOutside(node, () => setResultOpened(false))
   //////////////////////////////
   const [display, setDisplay] = useState(false) //show search
   const [options, setOptions] = useState([])
@@ -139,6 +161,7 @@ const Auto = () => {
         onClick={() => {
           // When form clicked, set state of baropened to true and focus the input
           setBarOpened(true);
+          setResultOpened(true)
           inputFocus.current.focus();
           setDisplay(!display)
         }}
@@ -150,13 +173,14 @@ const Auto = () => {
         // on blur close search bar
         onBlur={() => {
           setBarOpened(false);
+
         }}
         // On submit, call the onFormSubmit function
         onSubmit={onFormSubmit}
         ref={formRef}
       >
         <Button type="submit" barOpened={barOpened}>
-          icon
+          <Img src='https://image.flaticon.com/icons/svg/2919/2919722.svg' alt='search icon'/>
         </Button>
         <Input
           onChange={e => setInput(e.target.value)}
@@ -168,61 +192,64 @@ const Auto = () => {
       </Form>
       </div>
 
-      <div ref = {wrapperRef}>
-      {display && (
+        <Result ref = {node}
 
-        <div className="Results">
-          {options.map((stock, i) => {
-            let symbol = stock[`1. symbol`]
-            let name = stock['2. name']
-            // console.log(symbol, name);
+        resultOpened={resultOpened}
 
-            return(
-              <div onClick = {(e) =>{
-                setSearchedStock(symbol)
-                setBarOpened(true)
-              }}
-              key = {i}
-              >
-              <ul>
-                <li>{symbol} - {name}</li>
-              </ul>
+        >
+          {console.log(resultOpened)}
+          { options ? ( options.map((stock, i) => {
+          let symbol = stock[`1. symbol`]
+          let name = stock['2. name']
+          // console.log(symbol, name);
 
-              </div>
-            )
-          })}
+          return(
+            <div ref = {spanFocus}
+            onClick = {(e) =>{
+              setSearchedStock(symbol)
+                }}
+            key = {i}
+            >
+            <span>{symbol} - {name}</span>
+
+            </div>
+
+          )
+        }) ) : ( <div></div> )}
 
         <div className='ohlc'>
-        {stockDaily.map((stock, i) =>{
-          console.log(stock['Time Series (Daily)']["2020-06-18"]);
-          let arr = stock['Time Series (Daily)']["2020-06-18"]
-          // 1. open: "123.0000"
-          // 2. high: "124.4000"
-          // 3. low: "122.3300"
-          // 4. close: "124.1600"
-          // 5. volume: "2860286"
-          let o = arr['1. open']
-          let h = arr['2. high']
-          let l = arr['3. low']
-          let c = arr['4. close']
-          console.log(o, h, l, c);
-          return(
-            <div>
-              <h1> {searchedStock} </h1>
-              <span>open: {o} </span>
-              <span>high: {h} </span>
-              <span>low: {l} </span>
-              <span>close: {c} </span>
-            </div>
-          )
-        })}
+        { options ? (stockDaily.map((stock, i) =>{
+        // console.log(stock['Time Series (Daily)']["2020-06-18"]);
+        let arr = stock['Time Series (Daily)']["2020-06-18"]
+        // 1. open: "123.0000"
+        // 2. high: "124.4000"
+        // 3. low: "122.3300"
+        // 4. close: "124.1600"
+        // 5. volume: "2860286"
+        let o = arr['1. open']
+        let h = arr['2. high']
+        let l = arr['3. low']
+        let c = arr['4. close']
+        // console.log(o, h, l, c);
+        return(
+          <div>
+            <h1> {searchedStock} </h1>
+            <span>open: {o} </span>
+            <span>high: {h} </span>
+            <span>low: {l} </span>
+            <span>close: {c} </span>
+          </div>
+        )
+      })) : ( <div></div>) }
         </div>
-        </div>
-      )}
-      </div>
+
+        </Result>
+
+
 
 
     </div>
+
   );
 }
 

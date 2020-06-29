@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useOnClickOutside } from './hooks'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 import "./styles.css";
 
@@ -13,7 +14,7 @@ const Form = styled.form`
   background-color: #37474f;
   /* Change width of the form depending if the bar is opened or not */
   width: ${props => (props.barOpened ? "30rem" : "2rem")};
-  /* If bar opened, normal cursor on the whole form. If closed, show pointer on the whole form so user knows he can click to open it */
+  /* If bar opened, normal cursor on the whole form. If closed, show pointer on the whole form so user knows he can click to open it */;
   cursor: ${props => (props.barOpened ? "auto" : "pointer")};
   padding: 2rem;
   height: 2rem;
@@ -21,16 +22,23 @@ const Form = styled.form`
   transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 `;
 
-const Result = styled.div`
-width: ${props => (props.resultOpened ? "30rem" : "auto")};
-display: ${props => (props.resultOpened ? 'block' : 'none')};
-margin-top: 200px;
-border-radius: 20px;
-background-color: #36484F;
-padding: 10px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-transition: width 300s cubic-bezier(0.645, 0.045, 0.355, 1);
-`;
+  const Result = styled.div`
+  width: auto;
+  display: ${props => (props.resultOpened ? 'block' : 'none')};
+
+  margin-top: 200px;
+  border-radius: 20px;
+  background-color: ${props => (props.loading ? 'transparent' : '#36484F')};
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition-delay: 3s;
+  `;
+
+  const Load = styled.div`
+    display: inline-block;
+    align-content: center;
+  `;
 
 const Input = styled.input`
   font-size: 14px;
@@ -66,7 +74,8 @@ const Img = styled.img`
 `
 
 const Auto = () => {
-  const [input, setInput] = useState("ibm");
+  const [input, setInput] = useState("");
+  const [empty, setEmpty] = useState(true)
   const [barOpened, setBarOpened] = useState(false);
   const [resultOpened, setResultOpened] = useState(false)
   const formRef = useRef();
@@ -80,6 +89,7 @@ const Auto = () => {
   const [display, setDisplay] = useState(false) //show search
   const [options, setOptions] = useState([])
   const [search, setSearch] = useState('ibm')
+  const [loading, setLoading] = useState(false)
 
   const timeoutRef = useRef(null)
 
@@ -109,7 +119,9 @@ const Auto = () => {
         .then((data) =>{
           stocks = [...stocks, data]
           setOptions(stocks[0].bestMatches)
+          setEmpty(false)
           console.log('options',options);
+          console.log(loading);
         })
       /////////////////
       fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${searchedStock}&apikey=QZ4L2TSNZBWXXVTO`)
@@ -120,6 +132,7 @@ const Auto = () => {
 // daily[0]['Time Series (Daily)']["2020-06-18"]
 // console.log(daily);
           setStockDaily(daily)
+
           // console.log(daily);
         })
     }, 2000)
@@ -142,6 +155,20 @@ const Auto = () => {
     }
   }
 
+  // useEffect(() => {
+  //   if(options === undefined || options.length === 0){
+  //     setEmpty(true)
+  //   }
+  //   else{
+  //     setEmpty(false)
+  //     console.log(options.length);
+  //   }
+  //   console.log('empty: ', empty);
+  //
+  // },[options])
+
+
+
 
 
   const onFormSubmit = e => {
@@ -149,6 +176,7 @@ const Auto = () => {
     e.preventDefault();
     setInput("");
     setBarOpened(false);
+    setEmpty(true)
     // After form submit, do what you want with the input value
     console.log(`Form was submited with input: ${input}`);
   };
@@ -168,6 +196,7 @@ const Auto = () => {
         // on focus open search bar
         onFocus={() => {
           setBarOpened(true);
+          setLoading(true)
           inputFocus.current.focus();
         }}
         // on blur close search bar
@@ -188,6 +217,7 @@ const Auto = () => {
           value={input}
           barOpened={barOpened}
           placeholder="Search for a stock..."
+
         />
       </Form>
       </div>
@@ -197,11 +227,12 @@ const Auto = () => {
         resultOpened={resultOpened}
 
         >
-          {console.log(resultOpened)}
           { options ? ( options.map((stock, i) => {
+
           let symbol = stock[`1. symbol`]
           let name = stock['2. name']
           // console.log(symbol, name);
+
 
           return(
             <div ref = {spanFocus}
@@ -215,32 +246,32 @@ const Auto = () => {
             </div>
 
           )
-        }) ) : ( <div></div> )}
+        }) ) : ( <Load className='yo'><PulseLoader loading={true} setLoading={true} margin={5} color={'#2dc5e8b5'}/></Load> )}
 
         <div className='ohlc'>
         { options ? (stockDaily.map((stock, i) =>{
-        // console.log(stock['Time Series (Daily)']["2020-06-18"]);
-        let arr = stock['Time Series (Daily)']["2020-06-18"]
-        // 1. open: "123.0000"
-        // 2. high: "124.4000"
-        // 3. low: "122.3300"
-        // 4. close: "124.1600"
-        // 5. volume: "2860286"
-        let o = arr['1. open']
-        let h = arr['2. high']
-        let l = arr['3. low']
-        let c = arr['4. close']
-        // console.log(o, h, l, c);
-        return(
-          <div>
-            <h1> {searchedStock} </h1>
-            <span>open: {o} </span>
-            <span>high: {h} </span>
-            <span>low: {l} </span>
-            <span>close: {c} </span>
-          </div>
-        )
-      })) : ( <div></div>) }
+      // console.log(stock['Time Series (Daily)']["2020-06-18"]);
+      let arr = stock['Time Series (Daily)']["2020-06-18"]
+      // 1. open: "123.0000"
+      // 2. high: "124.4000"
+      // 3. low: "122.3300"
+      // 4. close: "124.1600"
+      // 5. volume: "2860286"
+      let o = arr['1. open']
+      let h = arr['2. high']
+      let l = arr['3. low']
+      let c = arr['4. close']
+      // console.log(o, h, l, c);
+      return(
+        <div>
+          <h1> {searchedStock} </h1>
+          <span>open: {o} </span>
+          <span>high: {h} </span>
+          <span>low: {l} </span>
+          <span>close: {c} </span>
+        </div>
+      )
+    })) : ( <div></div>) }
         </div>
 
         </Result>

@@ -34,6 +34,15 @@ const Form = styled.form`
   transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-delay: 3s;
   `;
+  const OHLC = styled.div`
+  position: absolute;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  `;
 
   const Load = styled.div`
     display: inline-block;
@@ -248,31 +257,43 @@ const Auto = () => {
           )
         }) ) : ( <Load className='yo'><PulseLoader loading={true} setLoading={true} margin={5} color={'#2dc5e8b5'}/></Load> )}
 
-        <div className='ohlc'>
+        <OHLC>
         { options ? (stockDaily.map((stock, i) =>{
       // console.log(stock['Time Series (Daily)']["2020-06-18"]);
-      let arr = stock['Time Series (Daily)']["2020-06-18"]
-      // 1. open: "123.0000"
-      // 2. high: "124.4000"
-      // 3. low: "122.3300"
-      // 4. close: "124.1600"
-      // 5. volume: "2860286"
-      let o = arr['1. open']
-      let h = arr['2. high']
-      let l = arr['3. low']
-      let c = arr['4. close']
-      // console.log(o, h, l, c);
-      return(
-        <div>
-          <h1> {searchedStock} </h1>
-          <span>open: {o} </span>
-          <span>high: {h} </span>
-          <span>low: {l} </span>
-          <span>close: {c} </span>
-        </div>
-      )
+
+
+
+      if(stock.Note){
+        return(
+          <div>API loading</div>
+        )
+      }else{
+        let arr = stock['Time Series (Daily)']["2020-06-18"]
+        // console.log(arr);
+        // 1. open: "123.0000"
+        // 2. high: "124.4000"
+        // 3. low: "122.3300"
+        // 4. close: "124.1600"
+        // 5. volume: "2860286"
+        let o = arr['1. open']
+        let h = arr['2. high']
+        let l = arr['3. low']
+        let c = arr['4. close']
+
+        console.log(o, h, l, c);
+        return(
+          <div key = {i}>
+            <h1> {(searchedStock)} </h1>
+            <span>open: {o} </span>
+            <span>high: {h} </span>
+            <span>low: {l} </span>
+            <span>close: {c} </span>
+          </div>
+        )
+      }
+
     })) : ( <div></div>) }
-        </div>
+        </OHLC>
 
         </Result>
 

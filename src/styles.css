@@ -1,0 +1,59 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.Search {
+  position: absolute;
+}
+
+.ohlc {
+  position: absolute;
+  margin-top: 20px;
+}
+
+.Results {
+
+  margin-top: 200px;
+  border-radius: 20px;
+  background-color: #36484F;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1)
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+button {
+  outline: none;
+  cursor: pointer;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+.tradingview-widget-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}

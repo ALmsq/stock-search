@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useOnClickOutside } from './hooks'
 import PulseLoader from 'react-spinners/PulseLoader'
+import TradingViewWidget from 'react-tradingview-widget'
 
 import "./styles.css";
 
@@ -102,7 +103,7 @@ const Auto = () => {
 
   const timeoutRef = useRef(null)
 
-  const [searchedStock, setSearchedStock] = useState('ibm')
+  const [searchedStock, setSearchedStock] = useState('aapl')
   const [stockDaily, setStockDaily] = useState([])
   const wrapperRef = useRef(null)
 
@@ -137,9 +138,6 @@ const Auto = () => {
         .then(res => res.json())
         .then((data) =>{
           daily = [...daily, data]
-          // console.log(daily[0]['Time Series (Daily)']["2020-06-18"])
-// daily[0]['Time Series (Daily)']["2020-06-18"]
-// console.log(daily);
           setStockDaily(daily)
 
           // console.log(daily);
@@ -184,14 +182,14 @@ const Auto = () => {
     // When form submited, clear input, close the searchbar and do something with input
     e.preventDefault();
     setInput("");
-    setBarOpened(false);
+    setBarOpened(true);
     setEmpty(true)
     // After form submit, do what you want with the input value
     console.log(`Form was submited with input: ${input}`);
   };
 
   return (
-    <div className="App" >
+    <div className="App">
       <div className="Search">
       <Form
         barOpened={barOpened}
@@ -250,26 +248,21 @@ const Auto = () => {
                 }}
             key = {i}
             >
-            <span>{symbol} - {name}</span>
+            <span style={{cursor: 'pointer'}} >{symbol} - {name}</span>
 
             </div>
 
           )
         }) ) : ( <Load className='yo'><PulseLoader loading={true} setLoading={true} margin={5} color={'#2dc5e8b5'}/></Load> )}
 
-        <OHLC>
+        {/* <OHLC>
         { options ? (stockDaily.map((stock, i) =>{
-      // console.log(stock['Time Series (Daily)']["2020-06-18"]);
 
 
 
-      if(stock.Note){
-        return(
-          <div>API loading</div>
-        )
-      }else{
+      if(!stock.Note){
         let arr = stock['Time Series (Daily)']["2020-06-18"]
-        // console.log(arr);
+        console.log(arr);
         // 1. open: "123.0000"
         // 2. high: "124.4000"
         // 3. low: "122.3300"
@@ -290,13 +283,29 @@ const Auto = () => {
             <span>close: {c} </span>
           </div>
         )
-      }
+
+
+      }else{
+        return(
+          <div>
+          <h1>{(searchedStock)}</h1>
+          <div>API loading</div>
+          <PulseLoader color={'#36484F'} />
+          </div>
+        )
+
+        }
+
 
     })) : ( <div></div>) }
-        </OHLC>
+        </OHLC> */}
 
         </Result>
-
+        {/* <TradingViewWidget
+          symbol="NASDAQ:AAPL"
+          locale="fr"
+          
+        /> */}
 
 
 

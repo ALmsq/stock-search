@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useOnClickOutside } from './hooks'
 import PulseLoader from 'react-spinners/PulseLoader'
 import TradingViewWidget from 'react-tradingview-widget'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentStock } from './Redux/actions/stockActions'
+import { useHistory } from 'react-router-dom'
 
 import "./styles.css";
 
@@ -173,7 +176,13 @@ const Auto = () => {
   //   console.log('empty: ', empty);
   //
   // },[options])
-
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const onStockClick = e =>{
+    console.log(e)
+    dispatch(setCurrentStock(e))
+    history.push('/chart')
+  }
 
 
 
@@ -245,6 +254,7 @@ const Auto = () => {
             <div ref = {spanFocus}
             onClick = {(e) =>{
               setSearchedStock(symbol)
+              onStockClick(symbol)
                 }}
             key = {i}
             >

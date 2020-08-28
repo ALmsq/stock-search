@@ -9,6 +9,8 @@ import { useOnClickOutside } from './hooks'
 import Ticker from './ticker'
 import jwt_decode from 'jwt-decode'
 import Chart from './components/Chart/chart'
+import { useSelector } from 'react-redux'
+import Navbar from './components/Navbar/navbar'
 
 
 
@@ -17,6 +19,7 @@ function App() {
   const inputFocus = useRef()
   const node = useRef()
   useOnClickOutside(node, () => setOpen(false))
+  
 return(
   <ThemeProvider theme={theme}>
   <>
@@ -28,18 +31,21 @@ return(
         <Burger open={open} setOpen={setOpen}/>
         <Menu open={open} setOpen={setOpen}/>
         <Ticker/>
+        <Navbar/>
         <Auto/>
       </div>
     }/>
-    <Route exact path='/chart' render={() =>
+    <Route path='/chart' render={() =>
       
       <div ref = {node}>
       <Burger open={open} setOpen={setOpen}/>
       <Menu open={open} setOpen={setOpen}/>
-      <Ticker/> 
+      <Ticker/>
+      <Navbar/> 
       <Chart /> 
       </div>
     }/>
+    <Route/>
   </Switch>
   </>
   </ThemeProvider>

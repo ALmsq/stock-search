@@ -181,7 +181,7 @@ const Auto = () => {
   const onStockClick = e =>{
     console.log(e)
     dispatch(setCurrentStock(e))
-    history.push('/chart')
+    history.push(`/chart/${e}`)
   }
 
 

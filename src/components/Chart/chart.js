@@ -30,7 +30,7 @@ const Chart = () => {
         <Col style={{position: 'relative'}} xs={4} > 
         
         
-        <Profile/>
+        <Profile />
 
         </Col>
         </Row>

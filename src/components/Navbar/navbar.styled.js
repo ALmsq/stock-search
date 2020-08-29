@@ -4,15 +4,22 @@ export const NavDiv = styled.div `
     position: absolute;
     
     top: 11%;
-    width : 50%;
-    height: 30px;
+    width : 60%;
+    height: 40px;
     overflow: hidden;
-    right: 0px;
+    right: 20px;
     display: flex;
     justify-content: space-around;
     box-shadow: 0 2px 0 #22bde2;
 `
 export const NavItem = styled.div`
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 14px; 
+`
+export const NavLink = styled.a`
+    background-color: '#37474f';
+    padding: '5px';
+    margin-left: 10px;
+    border-radius: '3px';
+    box-shadow: 0 2px 0 #22bde2;
 `

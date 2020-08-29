@@ -30,7 +30,7 @@ const Form = styled.form`
   width: auto;
   display: ${props => (props.resultOpened ? 'block' : 'none')};
 
-  margin-top: 200px;
+  margin-top: 300px;
   border-radius: 20px;
   background-color: ${props => (props.loading ? 'transparent' : '#36484F')};
   padding: 10px;
@@ -38,9 +38,10 @@ const Form = styled.form`
   transition: width 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-delay: 3s;
   `;
+
   const OHLC = styled.div`
   position: absolute;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -54,7 +55,7 @@ const Form = styled.form`
   `;
 
 const Input = styled.input`
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1;
   background-color: transparent;
   width: 100%;

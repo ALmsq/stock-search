@@ -1,5 +1,7 @@
 import {
-    SET_CURRENT_STOCK
+    SET_CURRENT_STOCK,
+    UPDATE_STOCK,
+    GET_STOCKS
 } from '../actions/types'
 
 
@@ -14,7 +16,34 @@ export default function(state = initialState, action){
                 ...state, 
                 stock: action.payload
             }
+        case GET_STOCKS:
+            return {
+                stocks: action.payload
+            }
             default:
                 return state
     }
 }
+
+// export default function(state = initialState, action){
+//     switch(action.type){
+//         case UPDATE_STOCK:
+//             return {
+//                 ...state, 
+//                 stock: action.payload
+//             }
+//             default:
+//                 return state
+//     }
+// }
+
+// export default function(state = [], action){
+//     switch(action.type){
+//         case GET_STOCKS:
+//             return {
+//                 stocks: action.payload
+//             }
+//             default:
+//                 return state
+//     }
+// }

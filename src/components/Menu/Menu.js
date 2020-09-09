@@ -5,7 +5,7 @@ const Menu = ({ open }) => {
   return (
     <StyledMenu open={open}>
       <a href="/">
-        <span role="img" aria-label="about us"></span>
+        <span role="img" aria-label="about us">🏠</span>
         Home
       </a>
       <a href="/chart">

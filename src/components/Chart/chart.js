@@ -17,7 +17,7 @@ const Chart = () => {
     
     const dispatch = useDispatch()
     const handleClick = () => {
-        axios.put(`http://localhost:5000/api/users/stocks/${user.id}`, {
+        axios.put(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`, {
                 stocks: stock
             })
             .then((res) =>{
@@ -54,7 +54,7 @@ const Chart = () => {
         </Row>
             
         </Wrapper>
-            <div>
+            <div style={{position: 'relative', top: '70px'}}>
             <PlusCircleOutlined onClick={handleClick} style={{fontSize: '26px', cursor:'pointer'}} /> Add to list
             </div>
         </div>

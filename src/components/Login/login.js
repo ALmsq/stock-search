@@ -29,9 +29,11 @@ const Login = (props) => {
 
     const history = useHistory()
     const onFinish = values => {
-        dispatch(loginUser(login))
-        if(auth.isAuthenticated){
+            setTimeout(() => {             //tries to reload before post request
+              dispatch(loginUser(login))
+            if(auth.isAuthenticated){
             history.push('/')}
+            }, 100);
       };
 
       useEffect(() => {

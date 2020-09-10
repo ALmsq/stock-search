@@ -17,13 +17,13 @@ const Navbar = (props) => {
     const logoutClick = () => {
         setTimeout(() => {             //tries to reload before post request
             dispatch(logoutUser())
-          }, 10);
+          }, 30);
     }
 
     const [stocks, setStocks] = useState([])
 
     useEffect( async () => {
-        const res = await axios.get(`http://localhost:5000/api/users/stocks/${user.id}`)
+        const res = await axios.get(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`)
     console.log(res.data)
     setStocks(res.data.stocks)
     },[])

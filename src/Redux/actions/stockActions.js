@@ -29,7 +29,7 @@ export const updateStock = (stock) => dispatch => {
 // }
 
 export const getStocks = (userID) => dispatch => {
-    axios.get(`http://localhost:5000/api/users/stocks/${userID}`)
+    axios.get(`https://stock-search-backend.herokuapp.com/api/users/stocks/${userID}`)
     .then((res) =>{
         console.log(res)
     })

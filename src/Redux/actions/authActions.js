@@ -9,7 +9,7 @@ import {
 
 //Registration
 export const registerUser = (userData, history) => dispatch => {
-    axios.post('http://localhost:5000/api/users/register', userData)
+    axios.post('https://cors-anywhere.herokuapp.com/https://stock-search-backend.herokuapp.com/api/users/register', userData)
     .then(res => history.push('/login'))
     .catch(err => 
         dispatch({
@@ -21,7 +21,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 //Login
 export const loginUser = userData => dispatch => {
-    axios.post('http://localhost:5000/api/users/login', userData)
+    axios.post('https://cors-anywhere.herokuapp.com/https://stock-search-backend.herokuapp.com/api/users/login', userData)
     .then(res => {
         //Set token to localstorage
         const { token } = res.data

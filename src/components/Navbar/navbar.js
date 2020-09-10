@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { NavDiv, NavItem, NavLink } from './navbar.styled'
 import { UserOutlined, StockOutlined } from '@ant-design/icons'
 import { logoutUser } from '../../Redux/actions/authActions'
+import SingleTicker from './singleTicker'
+import SingleTicker2 from './singleTicker2'
+import SymbolOverview from './SymbolOverview'
+import {Helmet} from 'react-helmet'
 import axios from 'axios'
 
 
@@ -24,7 +28,6 @@ const Navbar = (props) => {
     setStocks(res.data.stocks)
     },[])
 
-
     
 
     return (
@@ -44,13 +47,10 @@ const Navbar = (props) => {
                     <NavLink style={{backgroundColor: '#37474f', padding: '5px', borderRadius: '3px', marginLeft: '5px'}} href='/register'>register</NavLink>
                 </NavItem> }
         </NavDiv>
-        <div style={{position: 'relative', top: '20vh', left: '30vw'}} >
-            {(stocks.map((stock) => {
-                return(
-                    <div>{stock}</div>
-                )
-            }))}
+        <div style={{position: 'relative', top: '20vh', left: '10vw'}} >
+                    
              </div>
+            
         </div>
     )
 }

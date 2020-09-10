@@ -191,9 +191,9 @@ const Auto = () => {
   const onFormSubmit = e => {
     // When form submited, clear input, close the searchbar and do something with input
     e.preventDefault();
-    setInput("");
+    // setInput("");
     setBarOpened(true);
-    setEmpty(true)
+    // setEmpty(true)
     // After form submit, do what you want with the input value
     console.log(`Form was submited with input: ${input}`);
   };

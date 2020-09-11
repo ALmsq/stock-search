@@ -179,10 +179,9 @@ const Auto = () => {
   // },[options])
   const dispatch = useDispatch()
   const history = useHistory()
-  const onStockClick = e =>{
-    console.log(e)
-    dispatch(setCurrentStock(e))
-    history.push(`/chart/${e}`)
+  const onStockClick = (symbol, name) =>{
+    dispatch(setCurrentStock(symbol))
+    history.push(`/chart/${name}`)
   }
 
 
@@ -255,7 +254,7 @@ const Auto = () => {
             <div ref = {spanFocus}
             onClick = {(e) =>{
               setSearchedStock(symbol)
-              onStockClick(symbol)
+              onStockClick(symbol, name)
                 }}
             key = {i}
             >

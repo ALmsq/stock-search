@@ -17,9 +17,10 @@ const Register = (props) => {
 
     const dispatch = useDispatch()
     const [registration, setRegistration] = useState({
-        username: '',
+        email: '',
         password: '',
-        password2: '',
+        confirmPassword: '',
+        username: '',
     })
 
     const onChange = e => {

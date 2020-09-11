@@ -19,6 +19,8 @@ import Login from './components/Login/login'
 import Register from './components/Login/register'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'https://stock-tracker-be252.web.app/'
+
 
 if(localStorage.jwtToken){
   //set auth token as header auth

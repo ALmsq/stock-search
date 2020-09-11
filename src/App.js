@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Navbar from './components/Navbar/navbar'
 import Login from './components/Login/login'
 import Register from './components/Login/register'
+import UserPage from './components/User/userPage'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'https://stock-tracker-be252.web.app/'
@@ -115,6 +116,15 @@ return(
       <Menu open={open} setOpen={setOpen}/>
       <Ticker/>
       <Register/> 
+      </div>
+    }/>
+    <Route path='/userpage' render={() =>
+      <div ref = {node}>
+      <Burger open={open} setOpen={setOpen}/>
+      <Menu open={open} setOpen={setOpen}/>
+      <Ticker/>
+      <Navbar/>
+      <UserPage/>
       </div>
     }/>
   </Switch>

@@ -33,7 +33,7 @@ const Login = (props) => {
               dispatch(loginUser(login))
             if(auth.isAuthenticated){
             history.push('/')}
-            }, 100);
+            }, 10);
       };
 
       useEffect(() => {

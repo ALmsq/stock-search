@@ -17,7 +17,7 @@ const Navbar = (props) => {
     const logoutClick = () => {
         setTimeout(() => {             //tries to reload before post request
             dispatch(logoutUser())
-          }, 30);
+          }, 10);
     }
 
     const [stocks, setStocks] = useState([])

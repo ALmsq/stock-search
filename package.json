@@ -13,7 +13,7 @@
     "fetch-timeout": "0.0.2",
     "is-empty": "^1.2.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

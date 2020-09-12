@@ -36,7 +36,7 @@ import { useSelector } from 'react-redux'
 
 const Profile = () => {
 
-    const stock = useSelector(state => state.stock.stock)
+    const stock = useSelector(state => state.search.stock)
     const profileRef = useRef()
     // this._ref = React.createRef();
     useEffect(() =>{

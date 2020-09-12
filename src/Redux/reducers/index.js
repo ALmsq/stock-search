@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import authReducer from './authReducer'
 import errorReducer from './errorReducer'
-import stockReducer from './stockReducer'
+import searchActions from './searchActions'
 import userReducer from './userReducer'
 
 export default combineReducers({
     auth: authReducer,
     errors: errorReducer,
-    stock: stockReducer,
+    search: searchActions,
     user: userReducer
 })

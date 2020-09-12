@@ -4,7 +4,7 @@ import { useOnClickOutside } from './hooks'
 import PulseLoader from 'react-spinners/PulseLoader'
 import TradingViewWidget from 'react-tradingview-widget'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentStock } from './Redux/actions/stockActions'
+import { setCurrentStock } from './Redux/actions/searchActions'
 import { useHistory } from 'react-router-dom'
 
 import "./styles.css";

@@ -1,36 +1,20 @@
-import axios from 'axios'
-import { GET_STOCKS } from './types'
+import {
+    LOADING_UI,
+    LOADING_DATA,
+    GET_STOCKS,
+    POST_STOCK
+  } from './types';
 
-export const setCurrentStock = stock => {
-    return {
-        type: 'SET_CURRENT_STOCK',
-        payload: stock
-    }
-}
+  import axios from 'axios';
 
-export const updateStock = (stock) => dispatch => {
-    console.log(stock)
-    return {
-        type: 'UPDATE_STOCK',
-        payload: stock
-    }
-}
-
-// export const getStocks = (userID) => dispatch => {
-//     axios.get(`http://localhost:5000/api/users/stocks/${userID}`)
-//     .then(res => res.json())
-//     .then(stocks =>{
-//         console.log(stocks)
-//         dispatch({
-//             type: GET_STOCKS,
-//             payload: stocks
-//         })
-//     })
-// }
-
-export const getStocks = (userID) => dispatch => {
-    axios.get(`https://stock-search-backend.herokuapp.com/api/users/stocks/${userID}`)
-    .then((res) =>{
-        console.log(res)
-    })
-}
+  export const postStock = (newStock) => (dispatch) {
+      dispatch({ type: LOADING_UI })
+      axios.post('/user', newStock)
+      .then((res) => {
+          dispatch({ 
+              type: POST_STOCK,
+              payload: res.data
+          })
+      })
+  }
+  

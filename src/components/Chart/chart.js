@@ -12,7 +12,7 @@ import axios from 'axios'
 
 
 const Chart = () => {
-    const stock = useSelector(state => state.stock.stock)
+    const stock = useSelector(state => state.search.stock)
     const user = useSelector(state => state.auth.user)
     
     const dispatch = useDispatch()

@@ -1,49 +1,34 @@
 import {
-    SET_CURRENT_STOCK,
-    UPDATE_STOCK,
-    GET_STOCKS
+    LOADING_DATA,
+    GET_STOCKS,
+    POST_STOCK,
+    DELETE_STOCK
 } from '../actions/types'
 
-
 const initialState = {
-    stock: 'AMD'
+    stocks: [],
+    loading: true
 }
 
-export default function(state = initialState, action){
-    switch(action.type){
-        case SET_CURRENT_STOCK:
-            return {
-                ...state, 
-                stock: action.payload
+export default function(state = initialState, action) {
+    switch(action.type) {
+        case LOADING_DATA:
+            return{
+                ...state,
+                loading: true
             }
         case GET_STOCKS:
             return {
-                stocks: action.payload
+                ...state,
+                stocks: action.payload,
+                loading: false
             }
-            default:
-                return state
+        case POST_STOCK:
+            return {
+                ...state,
+                stocks: [action.payload, ...state.stocks]
+            }
+        default: 
+            return state
     }
 }
-
-// export default function(state = initialState, action){
-//     switch(action.type){
-//         case UPDATE_STOCK:
-//             return {
-//                 ...state, 
-//                 stock: action.payload
-//             }
-//             default:
-//                 return state
-//     }
-// }
-
-// export default function(state = [], action){
-//     switch(action.type){
-//         case GET_STOCKS:
-//             return {
-//                 stocks: action.payload
-//             }
-//             default:
-//                 return state
-//     }
-// }

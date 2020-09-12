@@ -2,8 +2,7 @@ import {
     SET_USER,
     SET_AUTHENTICATED,
     SET_UNAUTHENTICATED,
-    LOADING_USER,
-    ADD_STOCK
+    LOADING_USER
   } from '../actions/types';
 
   const initialState = {

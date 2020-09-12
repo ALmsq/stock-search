@@ -7,10 +7,10 @@ import { theme } from './theme';
 import { Burger, Menu } from './components'
 import { useOnClickOutside } from './hooks'
 import Ticker from './ticker'
-import jwt_decode from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import store from './Redux/store'
-import { setCurrentUser, logoutUser } from './Redux/actions/authActions'
+// import { setCurrentUser, logoutUser } from './Redux/actions/authActions'
 import {getStocks} from './Redux/actions/stockActions'
 import Chart from './components/Chart/chart'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,27 +18,43 @@ import Navbar from './components/Navbar/navbar'
 import Login from './components/Login/login'
 import Register from './components/Login/register'
 import UserPage from './components/User/userPage'
+
+import { SET_AUTHENTICATED } from './Redux/actions/types'
+import { logoutUser, getUserData } from './Redux/actions/userActions'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://stock-tracker-be252.web.app/'
+axios.defaults.baseURL = 'https://us-central1-stock-tracker-be252.cloudfunctions.net/api'
 
 
-if(localStorage.jwtToken){
-  //set auth token as header auth
-  const token = localStorage.jwtToken
-  setAuthToken(token)
-  //decode token and get user info and token expiration
-  const decoded = jwt_decode(token)
-  //set user and isauthenticated
-  store.dispatch(setCurrentUser(decoded))
+// if(localStorage.jwtToken){
+//   //set auth token as header auth
+//   const token = localStorage.jwtToken
+//   setAuthToken(token)
+//   //decode token and get user info and token expiration
+//   const decoded = jwt_decode(token)
+//   //set user and isauthenticated
+//   store.dispatch(setCurrentUser(decoded))
 
-  //check for expired token
-  const currentTime = Date.now() / 1000 //in ms
-  if(decoded.exp < currentTime) {
-    //logout if expired
-    store.dispatch(logoutUser())
-    //redirect to login
-    window.location.href = './login'
+//   //check for expired token
+//   const currentTime = Date.now() / 1000 //in ms
+//   if(decoded.exp < currentTime) {
+//     //logout if expired
+//     store.dispatch(logoutUser())
+//     //redirect to login
+//     window.location.href = './login'
+//   }
+// }
+
+const token = localStorage.FBIdToken;
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser());
+    window.location.href = '/login';
+  } else {
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
 

@@ -2,7 +2,7 @@
   "name": "stock-search",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://stock-tracker-be252.web.app/",
+  "proxy": "https://us-central1-stock-tracker-be252.cloudfunctions.net/api",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@testing-library/jest-dom": "^4.2.4",

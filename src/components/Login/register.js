@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../Redux/actions/authActions'
+// import { registerUser } from '../../Redux/actions/authActions'
+import { signupUser } from '../../Redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
 
 import { Wrapper } from './Login.styled'
@@ -33,19 +34,19 @@ const Register = (props) => {
         console.log('Success:', values);
         console.log(values.password)
         console.log(values.username)
-        
-        dispatch(registerUser(registration, history))
+        let newUserData = registration
+        dispatch(signupUser(newUserData, history))
         // history.push('/login')
       };
 
-    useEffect(() => {
-        if(auth.isAuthenticated){
-            history.push('/')
-            window.location.reload() // refresh body = hidden to enable scroll
-        }
-    })
+    // useEffect(() => {
+    //     if(auth.isAuthenticated){
+    //         history.push('/')
+    //         window.location.reload() // refresh body = hidden to enable scroll
+    //     }
+    // })
 
-    const {username, password, password2 } = registration
+    const { email, username, password, confirmPassword  } = registration
     
     return (
         <Wrapper>
@@ -56,12 +57,20 @@ const Register = (props) => {
                                   onFinish={onFinish} 
                                 >
                                 <Form.Item
+                                    name="email"
+                                    value={email}
+                                    onChange={onChange}
+                                    rules={[{ required: true, message: 'Please input your email!' }]}
+                                >
+                                    <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="email" />
+                                </Form.Item>
+                                <Form.Item
                                     name="username"
                                     value={username}
                                     onChange={onChange}
-                                    rules={[{ required: true, message: 'Please input your Username!' }]}
+                                    rules={[{ required: true, message: 'Please input your username!' }]}
                                 >
-                                    <Input name="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                                    <Input name="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="username" />
                                 </Form.Item>
                                 <Form.Item
                                     name="password"
@@ -77,18 +86,19 @@ const Register = (props) => {
                                     />
                                 </Form.Item>
                                 <Form.Item
-                                    name="password2"
-                                    value={password2}
+                                    name="confirmPassword"
+                                    value={confirmPassword}
                                     onChange={onChange}
                                     rules={[{ required: true, message: 'Please confirm your Password!' }]}
                                 >
                                     <Input
-                                    name='password2'
+                                    name='confirmPassword'
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="Confirm Password"
                                     />
                                 </Form.Item>
+                                
                                 
 
                                 <Form.Item>

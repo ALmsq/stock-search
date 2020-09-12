@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavDiv, NavItem, NavLink } from './navbar.styled'
 import { UserOutlined, StockOutlined } from '@ant-design/icons'
-import { logoutUser } from '../../Redux/actions/authActions'
+// import { logoutUser } from '../../Redux/actions/authActions'
+import { logoutUser } from '../../Redux/actions/userActions'
 import SingleTicker from './singleTicker'
 import SingleTicker2 from './singleTicker2'
 import SymbolOverview from './SymbolOverview'
@@ -12,7 +13,7 @@ import axios from 'axios'
 
 const Navbar = (props) => {
 
-    const user = useSelector(state => state.auth.user)
+    const user = useSelector(state => state.user.credentials)
     const dispatch = useDispatch()
     const logoutClick = () => {
         setTimeout(() => {             //tries to reload before post request
@@ -22,11 +23,11 @@ const Navbar = (props) => {
 
     const [stocks, setStocks] = useState([])
 
-    useEffect( async () => {
-        const res = await axios.get(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`)
-    console.log(res.data)
-    setStocks(res.data.stocks)
-    },[])
+    // useEffect( async () => {
+    //     const res = await axios.get(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`)
+    // console.log(res.data)
+    // setStocks(res.data.stocks)
+    // },[])
 
     
 

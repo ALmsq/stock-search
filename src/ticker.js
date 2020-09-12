@@ -11,8 +11,8 @@ export default class Ticker extends React.Component {
 }
 render() {
     return(
-    <div style={{zIndex: '2'}} class="tradingview-widget-container" ref={this._ref}>
-        <div class="tradingview-widget-container__widget"></div>
+    <div style={{zIndex: '2'}} className="tradingview-widget-container" ref={this._ref}>
+        <div className="tradingview-widget-container__widget"></div>
 
     </div>
     );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../../Redux/actions/authActions'
+// import { loginUser } from '../../Redux/actions/authActions'
+import { loginUser } from '../../Redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Wrapper } from './Login.styled'
 import 'antd/dist/antd.css'
@@ -17,7 +18,7 @@ const Login = (props) => {
 
     const dispatch = useDispatch()
     const [login, setLogin] = useState({
-        username: '',
+        email: '',
         password: ''
     })
 
@@ -29,23 +30,24 @@ const Login = (props) => {
 
     const history = useHistory()
     const onFinish = values => {
-            setTimeout(() => {             //tries to reload before post request
-              dispatch(loginUser(login))
-            if(auth.isAuthenticated){
-            history.push('/')}
-            }, 10);
+            // setTimeout(() => {             //tries to reload before post request
+            //   dispatch(loginUser(login))
+            // if(auth.isAuthenticated){
+            // history.push('/')}
+            // }, 10);
+            dispatch(loginUser(login, history))
       };
 
-      useEffect(() => {
-        if(auth.isAuthenticated){
-            history.push('/')
-            window.location.reload() // refresh body = hidden to enable scroll
-        }else if(errors.usernamenotfound){
-            alert(errors.usernamenotfound)
-        }
-      }, [errors, auth, history])
+      // useEffect(() => {
+      //   if(auth.isAuthenticated){
+      //       history.push('/')
+      //       window.location.reload() // refresh body = hidden to enable scroll
+      //   }else if(errors.usernamenotfound){
+      //       alert(errors.usernamenotfound)
+      //   }
+      // }, [errors, auth, history])
 
-      const {username, password} = login
+      const {email, password} = login
     
       return (
         <Wrapper>
@@ -59,17 +61,17 @@ const Login = (props) => {
         >
           <Form.Item
             style={{paddingBottom: '10px'}}
-            name="username"
-            value={username}
+            name="email"
+            value={email}
             onChange={onChange}
             rules={[
               {
                 required: true,
-                message: 'Please input your Username!',
+                message: 'Please input your email!',
               },
             ]}
           >
-            <Input name='username' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+            <Input name='email' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="email" />
           </Form.Item>
           <Form.Item
             style={{paddingBottom: '20px'}}

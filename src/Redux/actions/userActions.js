@@ -17,6 +17,12 @@ import {
             dispatch(getUserData())
             history.push('/')
         })
+        .catch((err) => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
   }
 
   export const signupUser = (newUserData, history) => (dispatch) => {
@@ -28,8 +34,11 @@ import {
             history.push('/')
       })
       .catch((err) => {
-          console.log(err)
-      })
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
+        })
+    })
   }
 
   export const logoutUser = () => (dispatch) => {

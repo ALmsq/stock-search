@@ -14,7 +14,7 @@ const Login = (props) => {
 
     const user = useSelector(state => state.auth.user )
     const auth = useSelector(state => state.auth)
-    const errors = useSelector(state => state.errors)
+    const errors = useSelector(state => state.ui.errors)
 
     const dispatch = useDispatch()
     const [login, setLogin] = useState({
@@ -46,6 +46,11 @@ const Login = (props) => {
       //       alert(errors.usernamenotfound)
       //   }
       // }, [errors, auth, history])
+      useEffect(() => {
+        if(errors.general){
+          alert(errors.general)
+        }
+      },[errors])
 
       const {email, password} = login
     

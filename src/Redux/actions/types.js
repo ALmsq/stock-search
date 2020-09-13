@@ -12,6 +12,9 @@ export const SET_USER = 'SET_USER';
 export const LOADING_USER = 'LOADING_USER';
 //ui
 export const LOADING_UI = 'LOADING_UI'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+export const SET_ERRORS = 'SET_ERRORS'
+
 //stocks
 export const LOADING_DATA = 'LOADING_DATA'
 export const GET_STOCKS = 'GET_STOCKS'

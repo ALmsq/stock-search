@@ -15,6 +15,7 @@ import 'antd/dist/antd.css'
 const Register = (props) => {
 
     const auth = useSelector(state => state.auth)
+    const errors = useSelector(state => state.ui.errors)
 
     const dispatch = useDispatch()
     const [registration, setRegistration] = useState({
@@ -39,12 +40,17 @@ const Register = (props) => {
         // history.push('/login')
       };
 
-    // useEffect(() => {
-    //     if(auth.isAuthenticated){
-    //         history.push('/')
-    //         window.location.reload() // refresh body = hidden to enable scroll
-    //     }
-    // })
+      useEffect(() => {
+        if(errors.email){
+          alert(errors.email)
+        }else if(errors.username){
+            alert(errors.username)
+        }else if(errors.confirmPassword){
+            alert(errors.confirmPassword)
+        }else if(errors.password){
+            alert(errors.password)}
+        
+      },[errors])
 
     const { email, username, password, confirmPassword  } = registration
     

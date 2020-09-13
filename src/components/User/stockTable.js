@@ -21,9 +21,9 @@ const StockTable = (props) => {
         axios.get('/user')
         .then((res) => {
             // allSymbols.push(res.data.credentials.symbols)
-            console.log(res.data.credentials.symbols.forEach(element => {
+            res.data.credentials.symbols.forEach(element => {
                 stocks.push(element)
-            }))
+            })
             
         script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js";
         script.async = true;

@@ -182,7 +182,7 @@ const Auto = () => {
 
   const onStockClick = (symbol, name) =>{
     name = name.split(' ').shift()
-    dispatch(setCurrentStock({stock: symbol}))
+    dispatch(setCurrentStock({symbol: symbol, name: name}))
     // console.log(setCurrentStock(stock))
     console.log('symbol: ', symbol, 'name: ', name)
     history.push(`/chart/${name}`)

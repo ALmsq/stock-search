@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const Profile = () => {
 
-    const stock = useSelector(state => state.search.stock)
+    const stock = useSelector(state => state.search.stock.symbol)
     const user = useSelector(state => state.user)
     
     const profileRef = useRef()

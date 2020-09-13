@@ -13,7 +13,8 @@ import axios from 'axios'
 
 
 const Chart = () => {
-    const stock = useSelector(state => state.search.stock)
+    const stock = useSelector(state => state.search.stock.symbol)
+    const stockName = useSelector(state => state.search.stock.name)
     const user = useSelector(state => state.user)
     
     const dispatch = useDispatch()
@@ -27,8 +28,10 @@ const Chart = () => {
         //     .catch((err) =>{
         //         console.log(err)
         //     })
+        let name = stockName ? stockName : stock
+
         let userData = {
-            displayName: stock,
+            displayName: name,
             name: `NASDAQ:${stock}`
         }
         dispatch(addStock(userData))

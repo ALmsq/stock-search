@@ -64,7 +64,8 @@ function App() {
   const inputFocus = useRef()
   const node = useRef()
   useOnClickOutside(node, () => setOpen(false))
-  const user = useSelector(state => state.auth.user)
+  const user = useSelector(state => state.user)
+  const allSymbols = useSelector(state => state.user.credentials)
 
   const dispatch = useDispatch()
 
@@ -94,8 +95,10 @@ function App() {
   // },[])
   
 return(
+  
   <ThemeProvider theme={theme}>
   <>
+  {console.log(allSymbols.symbols)}
   <GlobalStyles/>
   <Switch>
     <Route exact path='/' render={() =>
@@ -140,7 +143,7 @@ return(
       <Menu open={open} setOpen={setOpen}/>
       <Ticker/>
       <Navbar/>
-      <UserPage/>
+      <UserPage symbols={allSymbols.symbols} />
       </div>
     }/>
   </Switch>

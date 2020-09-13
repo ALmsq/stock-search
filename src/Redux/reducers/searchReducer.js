@@ -6,7 +6,7 @@ import {
 
 
 const initialState = {
-    stock: 'AMD'
+    stock: 'DIS'
 }
 
 export default function(state = initialState, action){
@@ -18,7 +18,7 @@ export default function(state = initialState, action){
             }
         case GET_SEARCH:
             return {
-                stocks: action.payload
+                stock: action.payload
             }
             default:
                 return state

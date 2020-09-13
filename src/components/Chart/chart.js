@@ -7,25 +7,32 @@ import { Grid, Row, Col } from 'react-flexbox-grid'
 import Profile from './profile'
 import { useSelector, useDispatch } from 'react-redux'
 import {PlusCircleOutlined} from '@ant-design/icons'
+import { addStock, removeStock } from '../../Redux/actions/userActions'
 import axios from 'axios'
 
 
 
 const Chart = () => {
     const stock = useSelector(state => state.search.stock)
-    const user = useSelector(state => state.auth.user)
+    const user = useSelector(state => state.user)
     
     const dispatch = useDispatch()
     const handleClick = () => {
-        axios.put(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`, {
-                stocks: stock
-            })
-            .then((res) =>{
-                console.log(res)
-            })
-            .catch((err) =>{
-                console.log(err)
-            })
+        // axios.put(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`, {
+        //         stocks: stock
+        //     })
+        //     .then((res) =>{
+        //         console.log(res)
+        //     })
+        //     .catch((err) =>{
+        //         console.log(err)
+        //     })
+        let userData = {
+            displayName: stock,
+            name: `NASDAQ:${stock}`
+        }
+        dispatch(addStock(userData))
+        console.log(userData)
     }
     
 
@@ -35,7 +42,7 @@ const Chart = () => {
 
     return(
         <div>
-            
+            {console.log(user)}
         <Wrapper>
         <Row style={{textAlign: 'center'}}>
         

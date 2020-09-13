@@ -8,12 +8,13 @@ import SingleTicker from './singleTicker'
 import SingleTicker2 from './singleTicker2'
 import SymbolOverview from './SymbolOverview'
 import {Helmet} from 'react-helmet'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 
 const Navbar = (props) => {
-
     const user = useSelector(state => state.user.credentials)
+    const history = useHistory()
     const dispatch = useDispatch()
     const logoutClick = () => {
         setTimeout(() => {             //tries to reload before post request
@@ -28,18 +29,35 @@ const Navbar = (props) => {
     // console.log(res.data)
     // setStocks(res.data.stocks)
     // },[])
+    // history.push(`/chart/${name}`)
 
+    const userPage = () => {
+        if(user.symbols){
+            history.push(`/userpage/${user.username}`)
+        }else{
+            console.log('no symbols found')
+        }
+
+        // (user.symbols ? history.push(`/userpage/${user.username}`) : null)
+        // console.log(user.symbols === true)
+    }
+
+    const homePage = () => {
+        history.push(`/`)
+    }
+    
     
 
     return (
         <div>
             {console.log(stocks)}
             <NavDiv>
-                <NavItem style={{}}>
+                <NavItem onClick={() => homePage()} style={{cursor: 'pointer'}}>
                     <StockOutlined style={{position: 'relative', fontSize: '20px'}} /> Stock Search
                     </NavItem>
                 {user.username? 
-                <NavItem> <UserOutlined/> {user.username} </NavItem>
+                // <NavItem> <UserOutlined/> <NavLink href='/userpage' >{user.username}</NavLink> </NavItem>
+                <NavItem  > <UserOutlined/> <span onClick={() => userPage()} style={{cursor: 'pointer', textDecoration: 'underline'}} >{user.username}</span> </NavItem>
                 : null }
                 {user.username? 
                 <NavItem onClick={logoutClick}> <NavLink style={{backgroundColor: '#37474f', padding: '5px', borderRadius: '3px'}} href='/'>logout</NavLink> </NavItem>

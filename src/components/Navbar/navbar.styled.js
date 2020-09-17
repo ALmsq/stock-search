@@ -13,7 +13,7 @@ export const NavDiv = styled.div `
     box-shadow: 0 2px 0 #22bde2;
 `
 export const NavItem = styled.div`
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 14px; 
 `
 export const NavLink = styled.a`
@@ -22,4 +22,13 @@ export const NavLink = styled.a`
     margin-left: 10px;
     border-radius: '3px';
     box-shadow: 0 2px 0 #22bde2;
+`
+export const NavImg = styled.img`
+    height: 35px;
+    width: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 0 #22bde2;
+    border: 2px solid black;
 `

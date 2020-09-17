@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavDiv, NavItem, NavLink } from './navbar.styled'
+import { NavDiv, NavItem, NavLink, NavImg } from './navbar.styled'
 import { UserOutlined, StockOutlined } from '@ant-design/icons'
 // import { logoutUser } from '../../Redux/actions/authActions'
 import { logoutUser } from '../../Redux/actions/userActions'
@@ -53,7 +53,8 @@ const Navbar = (props) => {
             {console.log(stocks)}
             <NavDiv>
                 <NavItem onClick={() => homePage()} style={{cursor: 'pointer'}}>
-                    <StockOutlined style={{position: 'relative', fontSize: '20px'}} /> Stock Search
+                    {/* <StockOutlined style={{position: 'relative', fontSize: '20px'}} /> Stock Search */}
+                    <NavImg src='https://www.flaticon.com/svg/static/icons/svg/3460/3460062.svg' /> Stock Search
                     </NavItem>
                 {user.username? 
                 // <NavItem> <UserOutlined/> <NavLink href='/userpage' >{user.username}</NavLink> </NavItem>

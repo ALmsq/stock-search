@@ -19,15 +19,6 @@ const Chart = () => {
     
     const dispatch = useDispatch()
     const handleClick = () => {
-        // axios.put(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`, {
-        //         stocks: stock
-        //     })
-        //     .then((res) =>{
-        //         console.log(res)
-        //     })
-        //     .catch((err) =>{
-        //         console.log(err)
-        //     })
         let name = stockName ? stockName : stock
 
         let userData = {

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { Route, Switch } from 'react-router'
 import Auto from './Auto'
 import { ThemeProvider } from 'styled-components';
@@ -8,12 +8,11 @@ import { Burger, Menu } from './components'
 import { useOnClickOutside } from './hooks'
 import Ticker from './ticker'
 import jwtDecode from 'jwt-decode'
-import setAuthToken from './utils/setAuthToken'
 import store from './Redux/store'
-// import { setCurrentUser, logoutUser } from './Redux/actions/authActions'
-import {getStocks} from './Redux/actions/searchActions'
+
+
 import Chart from './components/Chart/chart'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 import Navbar from './components/Navbar/navbar'
 import Login from './components/Login/login'
 import Register from './components/Login/register'
@@ -24,26 +23,6 @@ import { logoutUser, getUserData } from './Redux/actions/userActions'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'https://us-central1-stock-tracker-be252.cloudfunctions.net/api'
-
-
-// if(localStorage.jwtToken){
-//   //set auth token as header auth
-//   const token = localStorage.jwtToken
-//   setAuthToken(token)
-//   //decode token and get user info and token expiration
-//   const decoded = jwt_decode(token)
-//   //set user and isauthenticated
-//   store.dispatch(setCurrentUser(decoded))
-
-//   //check for expired token
-//   const currentTime = Date.now() / 1000 //in ms
-//   if(decoded.exp < currentTime) {
-//     //logout if expired
-//     store.dispatch(logoutUser())
-//     //redirect to login
-//     window.location.href = './login'
-//   }
-// }
 
 const token = localStorage.FBIdToken;
 if (token) {
@@ -61,44 +40,16 @@ if (token) {
 
 function App() {
   const [open, setOpen] = useState(false)
-  const inputFocus = useRef()
   const node = useRef()
   useOnClickOutside(node, () => setOpen(false))
-  const user = useSelector(state => state.user)
   const allSymbols = useSelector(state => state.user.credentials)
 
-  const dispatch = useDispatch()
-
-  // useEffect( () => {
-  //   // dispatch(getStocks(user.id))
-  //   // // console.log(user.id)
-  //   // const res = await axios.get(`http://localhost:5000/api/users/stocks/${user.id}`)
-  //   // console.log(res.data)
-  //   if(localStorage.jwtToken){
-  //     //set auth token as header auth
-  //     const token = localStorage.jwtToken
-  //     setAuthToken(token)
-  //     //decode token and get user info and token expiration
-  //     const decoded = jwt_decode(token)
-  //     //set user and isauthenticated
-  //     store.dispatch(setCurrentUser(decoded))
-    
-  //     //check for expired token
-  //     const currentTime = Date.now() / 1000 //in ms
-  //     if(decoded.exp < currentTime) {
-  //       //logout if expired
-  //       store.dispatch(logoutUser())
-  //       //redirect to login
-  //       window.location.href = './login'
-  //     }
-  //   }
-  // },[])
   
+
 return(
   
   <ThemeProvider theme={theme}>
   <>
-  {console.log(allSymbols.symbols)}
   <GlobalStyles/>
   <Switch>
     <Route exact path='/' render={() =>

@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavDiv, NavItem, NavLink, NavImg } from './navbar.styled'
 import { UserOutlined, StockOutlined } from '@ant-design/icons'
-// import { logoutUser } from '../../Redux/actions/authActions'
 import { logoutUser } from '../../Redux/actions/userActions'
-import SingleTicker from './singleTicker'
-import SingleTicker2 from './singleTicker2'
-import SymbolOverview from './SymbolOverview'
-import {Helmet} from 'react-helmet'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios'
+
 
 
 const Navbar = (props) => {
@@ -24,12 +19,6 @@ const Navbar = (props) => {
 
     const [stocks, setStocks] = useState([])
 
-    // useEffect( async () => {
-    //     const res = await axios.get(`https://stock-search-backend.herokuapp.com/api/users/stocks/${user.id}`)
-    // console.log(res.data)
-    // setStocks(res.data.stocks)
-    // },[])
-    // history.push(`/chart/${name}`)
 
     const userPage = () => {
         if(user.symbols){
@@ -38,8 +27,6 @@ const Navbar = (props) => {
             console.log('no symbols found')
         }
 
-        // (user.symbols ? history.push(`/userpage/${user.username}`) : null)
-        // console.log(user.symbols === true)
     }
 
     const homePage = () => {

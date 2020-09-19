@@ -12,8 +12,6 @@ import './login.css'
 
 const Login = (props) => {
 
-    const user = useSelector(state => state.auth.user )
-    const auth = useSelector(state => state.auth)
     const errors = useSelector(state => state.ui.errors)
 
     const dispatch = useDispatch()
@@ -30,22 +28,11 @@ const Login = (props) => {
 
     const history = useHistory()
     const onFinish = values => {
-            // setTimeout(() => {             //tries to reload before post request
-            //   dispatch(loginUser(login))
-            // if(auth.isAuthenticated){
-            // history.push('/')}
-            // }, 10);
-            dispatch(loginUser(login, history))
+  
+    dispatch(loginUser(login, history))
       };
 
-      // useEffect(() => {
-      //   if(auth.isAuthenticated){
-      //       history.push('/')
-      //       window.location.reload() // refresh body = hidden to enable scroll
-      //   }else if(errors.usernamenotfound){
-      //       alert(errors.usernamenotfound)
-      //   }
-      // }, [errors, auth, history])
+     
       useEffect(() => {
         if(errors.general){
           alert(errors.general)

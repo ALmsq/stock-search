@@ -14,7 +14,7 @@
     "is-empty": "^1.2.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-flexbox-grid": "^2.1.2",
